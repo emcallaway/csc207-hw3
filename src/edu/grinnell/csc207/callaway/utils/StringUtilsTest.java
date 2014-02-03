@@ -23,7 +23,7 @@ public class StringUtilsTest {
 	assertArrayEquals("trailing empty field", new String[] { "a", "" },
 		StringUtils.splitAt("a:", ':'));
     }
-    
+  /*  
     @Test
     public void testSplitCSV() {
 	assertArrayEquals (new String[] { "a", "b", "c" },
@@ -32,6 +32,14 @@ public class StringUtilsTest {
 //                StringUtils.splitCSV("\"a,b\",c"));
 	assertArrayEquals (new String[] { "a", "b,b\"", "c" },
                 StringUtils.splitCSV("a,\"b,b\"\"\",c"));
+    }*/
+    
+    @Test
+    public void testdeLeet() {
+    	assertEquals ("e", StringUtils.deLeet ("3"));
+    	assertEquals ("leet", StringUtils.deLeet ("133+"));
+    	assertEquals ("eat banana", StringUtils.deLeet ("3@+ |3@|\\|@|\\|@"));
+    	assertEquals ("eat dd |xeacnan", StringUtils.deLeet ("3@+ dd |x3@c|\\|@|\\|"));
     }
 
 }

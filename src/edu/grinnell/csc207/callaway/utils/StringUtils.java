@@ -2,9 +2,7 @@ package edu.grinnell.csc207.callaway.utils;
 import java.util.*;
 
 public class StringUtils {
-    
-    
-    private static Object String;
+   
     public static String[] splitAt(String str, char seperator) {
 	int k = 0, j = 0, count = 0, size = 1;
 
@@ -143,11 +141,45 @@ public class StringUtils {
 	
 	return newArray;
     }//splitCSV
+   
+    public static String deLeet(String str)
+    {
+	String leet= "";
+	for (int i=0; i<str.length(); i++)
+	{
+	    if (str.charAt(i)== '@')
+		leet = leet.concat("a");
+	    else if (str.charAt(i)== '+')
+		leet = leet.concat("t");
+	    else if (str.charAt(i)== '1')
+		leet = leet.concat("l");
+	    else if (str.charAt(i)== '0')
+		leet = leet.concat("o");
+	    else if ((i+3<str.length()) && (str.substring(i, i+3)).equals("|\\|"))
+	    {
+		leet = leet.concat("n");
+		i+=2;
+	    }// else if(n)
+	    else if ((i+2<str.length()) &&(str.substring(i, i+2)).equals("|3"))
+	    {
+		leet = leet.concat("b");
+		i++;
+	    }// else if (b)
+	    else if (str.charAt(i)=='3')
+		leet = leet.concat("e");
+	    else
+		leet = leet.concat(str.substring(i, i+1));
+	}//for
+	return leet;
+    }//deLeet
+    
     public static void main(String[]args)
     {
-	System.out.println(Arrays.toString(new String[] {"a", "b,b\"", "c" }));
-	System.out.println(Arrays.toString(splitCSV("a,\"b,b\"\"c\"\"\",c,l,m.")));
-	System.out.println(Arrays.toString(splitCSV("\"a,b\",c")));
-	System.out.println(Arrays.toString(splitCSV("a,b,c")));
+	//System.out.println(Arrays.toString(new String[] {"a", "b,b\"", "c" }));
+	//System.out.println(Arrays.toString(splitCSV("a,\"b,b\"\"c\"\"\",c,l,m.")));
+	//System.out.println(Arrays.toString(splitCSV("\"a,b\",c")));
+	//System.out.println(Arrays.toString(splitCSV("a,b,c")));
+	System.out.println(("rt3r3|\\|+@3"));
+	System.out.println(deLeet("rjhg |3 r 3 |\\| + @ 3 dsgf"));
     }
 }//StringUtils

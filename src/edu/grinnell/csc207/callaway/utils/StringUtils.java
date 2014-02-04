@@ -89,7 +89,7 @@ public class StringUtils {
 		return newArray;
 	}// splitCSV
 
-	public static String[] splitCSV(String str) {
+	public static String[] splitCSV2(String str) {
 		String newArray[] = new String[10];
 		char seperator = ',';
 		int k = 0, count = 0, num = 0;
@@ -136,6 +136,25 @@ public class StringUtils {
 		return newArray;
 	}// splitCSV
 
+	public static String[] splitCSV(String str)
+	{
+	    String newArray[] = new String[10];
+	    char seperator = ',';
+	    int k=0;
+	    String word="";
+	    for(int i =0; i<str.length(); i++)
+	    {
+		if(str.charAt(i)=='"')
+		{
+		    i++;
+		    k=i+2;
+		    while (k<(str.length()) && !(str.charAt(k)=='"'))
+			    k++;
+		    word= str.substring(i, k);
+		    i=k;
+		}//if(")
+	    }//for
+	}//splitCSV
 	public static String deLeet(String str) {
 		String leet = "";
 		for (int i = 0; i < str.length(); i++) {
@@ -192,10 +211,10 @@ public class StringUtils {
 		// System.out.println(Arrays.toString(new String[] {"a", "b,b\"", "c"
 		// }));
 		// System.out.println(Arrays.toString(splitCSV("a,\"b,b\"\"c\"\"\",c,l,m.")));
-		// System.out.println(Arrays.toString(splitCSV("\"a,b\",c")));
+		 System.out.println(Arrays.toString(splitCSV("\"a,b\",c")));
 		// System.out.println(Arrays.toString(splitCSV("a,b,c")));
 		//System.out.println(("rt3r3|\\|+@3"));
 		//System.out.println(deLeet("rjhg |3 r 3 |\\| + @ 3 dsgf"));
-	    System.out.println(nameGame("ian"));
+	    //System.out.println(nameGame("ian"));
 	}
 }// StringUtils

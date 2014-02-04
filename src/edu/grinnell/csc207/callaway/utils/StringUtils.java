@@ -136,25 +136,55 @@ public class StringUtils {
 		return newArray;
 	}// splitCSV
 
-	public static String[] splitCSV(String str)
-	{
-	    String newArray[] = new String[10];
-	    char seperator = ',';
-	    int k=0;
-	    String word="";
-	    for(int i =0; i<str.length(); i++)
-	    {
-		if(str.charAt(i)=='"')
-		{
-		    i++;
-		    k=i+2;
-		    while (k<(str.length()) && !(str.charAt(k)=='"'))
-			    k++;
-		    word= str.substring(i, k);
-		    i=k;
-		}//if(")
-	    }//for
-	}//splitCSV
+	public static String[] splitCSV(String str) {
+		String newArray[] = new String[10];
+		char seperator = ',';
+		int k = 0, count=-1;
+		String word = "";
+		
+		for (int i = 0; i < str.length(); i++) {
+			if (i==0 && str.charAt(0)!='"')
+			{
+				while (k < (str.length()) && !(str.charAt(k)==','))
+				k++;
+				if(str.charAt(k)=='"' && str.charAt(k+2)=='"')
+					k++;
+				word = str.substring(i, k);
+				i = k-1;
+				count++;
+			}
+			else if (str.charAt(i) == '"') {
+				i++;
+				k = i;
+				while (k < (str.length()) && !(str.charAt(k) == '"'))
+					k++;
+				word = str.substring(i, k);
+				if (str.charAt(k) == '"' && str.charAt(k+2) == '"')
+					word+= str.charAt(k+1);
+				i = k;
+				count++;
+			}// if(")
+			else if (str.charAt(i)== ',') 
+			{
+				i++;
+				k = i;
+				if (str.charAt(k)!='"'){
+				while (k < (str.length()) && !((str.charAt(k) == '"') || str.charAt(k)==','))
+					k++;
+				word= str.substring(i, k);
+				i = k-1;
+				count++;
+				}//if
+				else i--;
+			} //else if
+			else
+				word+= str.charAt(i);
+			newArray[count]= word;
+		}// for
+		
+		return newArray;
+	}// splitCSV
+
 	public static String deLeet(String str) {
 		String leet = "";
 		for (int i = 0; i < str.length(); i++) {
@@ -183,38 +213,37 @@ public class StringUtils {
 		}// for
 		return leet;
 	}// deLeet
-	
+
 	/**
-	 * Preconditions: Parameter must be a valid string.
-	 * 		  Names given must not begin with a vowel. Otherwise the rhyme
-	 * 			cannot be guaranteed. 
-	 * Postconditions: A verse from Shirley Ellis's algorithm "The Name Game" will
-	 * 			be returned. The verse will rhyme with the name given as
-	 * 			the parameter.
+	 * Preconditions: Parameter must be a valid string. Names given must not
+	 * begin with a vowel. Otherwise the rhyme cannot be guaranteed.
+	 * Postconditions: A verse from Shirley Ellis's algorithm "The Name Game"
+	 * will be returned. The verse will rhyme with the name given as the
+	 * parameter.
 	 */
-	public static String nameGame(String str)
-	{
-	    String namPart= "";
-	    String verse= "";
-		if(!(str.charAt(1)=='a' || str.charAt(1)=='e' ||str.charAt(1)=='i' ||
-			str.charAt(1)=='o' ||str.charAt(1)=='u' || str.charAt(1)=='y'))
-		    namPart = str.substring(2);
+	public static String nameGame(String str) {
+		String namPart = "";
+		String verse = "";
+		if (!(str.charAt(1) == 'a' || str.charAt(1) == 'e'
+				|| str.charAt(1) == 'i' || str.charAt(1) == 'o'
+				|| str.charAt(1) == 'u' || str.charAt(1) == 'y'))
+			namPart = str.substring(2);
 		else
-		    namPart = str.substring(1);
-		verse = str + "!\n" +
-			str + ", " + str + " bo B" + namPart + " Bonnana fanna fo F" + namPart
-			+ "\nFee fi fo M" + namPart + ", " + str + "!";
-	    return verse;
-	}//nameGame
-	
+			namPart = str.substring(1);
+		verse = str + "!\n" + str + ", " + str + " bo B" + namPart
+				+ " Bonnana fanna fo F" + namPart + "\nFee fi fo M" + namPart
+				+ ", " + str + "!";
+		return verse;
+	}// nameGame
+
 	public static void main(String[] args) {
 		// System.out.println(Arrays.toString(new String[] {"a", "b,b\"", "c"
 		// }));
-		// System.out.println(Arrays.toString(splitCSV("a,\"b,b\"\"c\"\"\",c,l,m.")));
-		 System.out.println(Arrays.toString(splitCSV("\"a,b\",c")));
-		// System.out.println(Arrays.toString(splitCSV("a,b,c")));
-		//System.out.println(("rt3r3|\\|+@3"));
-		//System.out.println(deLeet("rjhg |3 r 3 |\\| + @ 3 dsgf"));
-	    //System.out.println(nameGame("ian"));
+		System.out.println(Arrays.toString(splitCSV("a,\"b,b\"\"\",c")));
+		System.out.println(Arrays.toString(splitCSV("\"a,b\",c")));
+		 System.out.println(Arrays.toString(splitCSV("a,b,c")));
+		// System.out.println(("rt3r3|\\|+@3"));
+		// System.out.println(deLeet("rjhg |3 r 3 |\\| + @ 3 dsgf"));
+		// System.out.println(nameGame("ian"));
 	}
 }// StringUtils

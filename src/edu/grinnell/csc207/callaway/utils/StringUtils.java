@@ -164,14 +164,38 @@ public class StringUtils {
 		}// for
 		return leet;
 	}// deLeet
-
+	
+	/**
+	 * Preconditions: Parameter must be a valid string.
+	 * 		  Names given must not begin with a vowel. Otherwise the rhyme
+	 * 			cannot be guaranteed. 
+	 * Postconditions: A verse from Shirley Ellis's algorithm "The Name Game" will
+	 * 			be returned. The verse will rhyme with the name given as
+	 * 			the parameter.
+	 */
+	public static String nameGame(String str)
+	{
+	    String namPart= "";
+	    String verse= "";
+		if(!(str.charAt(1)=='a' || str.charAt(1)=='e' ||str.charAt(1)=='i' ||
+			str.charAt(1)=='o' ||str.charAt(1)=='u' || str.charAt(1)=='y'))
+		    namPart = str.substring(2);
+		else
+		    namPart = str.substring(1);
+		verse = str + "!\n" +
+			str + ", " + str + " bo B" + namPart + " Bonnana fanna fo F" + namPart
+			+ "\nFee fi fo M" + namPart + ", " + str + "!";
+	    return verse;
+	}//nameGame
+	
 	public static void main(String[] args) {
 		// System.out.println(Arrays.toString(new String[] {"a", "b,b\"", "c"
 		// }));
 		// System.out.println(Arrays.toString(splitCSV("a,\"b,b\"\"c\"\"\",c,l,m.")));
 		// System.out.println(Arrays.toString(splitCSV("\"a,b\",c")));
 		// System.out.println(Arrays.toString(splitCSV("a,b,c")));
-		System.out.println(("rt3r3|\\|+@3"));
-		System.out.println(deLeet("rjhg |3 r 3 |\\| + @ 3 dsgf"));
+		//System.out.println(("rt3r3|\\|+@3"));
+		//System.out.println(deLeet("rjhg |3 r 3 |\\| + @ 3 dsgf"));
+	    System.out.println(nameGame("ian"));
 	}
 }// StringUtils

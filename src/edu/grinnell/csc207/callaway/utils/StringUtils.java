@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * of a song that can rhyme with (almost) any name.
  * 
  * @author Erin Callaway
- * @version 1.0 of February 5, 2014
+ * @version 1.0 from February 5, 2014
  * 
  * Help Accepted: The idea to use ArrayLists in the splitCSV method
  * came from Alex Greenberg.
@@ -85,8 +85,15 @@ public class StringUtils
    */
   public static String[] splitCSV(String str)
   {
-    int k = 0;
-    
+    int k = 0, count = 0;
+    for (int i = 0; i < str.length(); i++)
+      {
+        if (str.charAt(i) == '"')
+          count++;
+      }
+    if ((count % 2) != 0)
+      throw new IllegalArgumentException("There must be an even number of quotes.");
+
     ArrayList<String> newArrLst = new ArrayList<String>();
 
     for (int i = 0; i < str.length(); i++)

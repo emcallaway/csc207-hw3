@@ -7,7 +7,7 @@ import java.math.BigInteger;
  * BigIntegers.
  * 
  * @author Erin Callaway
- * @version 1.0 of February 5, 2014
+ * @version 1.0 from February 5, 2014
  */
 public class Calculator
 {

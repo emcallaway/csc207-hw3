@@ -18,4 +18,4 @@ public class CalculatorTest
     assertEquals(BigInteger.valueOf(27), Calculator.eval0("1 + 2 ^ 3"));
   }// eval0Test
 
-}
+}// CalculatorTest

@@ -1,9 +1,6 @@
 package edu.grinnell.csc207.callaway.utils;
 
 import static org.junit.Assert.*;
-
-import java.math.BigInteger;
-
 import org.junit.Test;
 
 public class StringUtilsTest {
@@ -28,12 +25,17 @@ public class StringUtilsTest {
    
     @Test
     public void testSplitCSV() {
-//	assertArrayEquals (new String[] { "a", "b", "c" },
-//                StringUtils.splitCSV("a,b,c"));
-//	assertArrayEquals (new String[] { "a,b", "c" },
-//                StringUtils.splitCSV("\"a,b\",c"));
-	assertArrayEquals (new String[] { "a", "b,b\"", "c" },
+	assertArrayEquals ("1",new String[] { "a", "b", "c" },
+                StringUtils.splitCSV("a,b,c"));
+	assertArrayEquals ("2",new String[] { "a,b", "c" },
+                StringUtils.splitCSV("\"a,b\",c"));
+	assertArrayEquals ("3",new String[] { "a", "b,b\"", "c" },
                 StringUtils.splitCSV("a,\"b,b\"\"\",c"));
+	assertArrayEquals ("4",new String[] { "a", "b,b\"", "c,d" },
+	                   StringUtils.splitCSV("a,\"b,b\"\"\",\"c,d\""));
+	assertArrayEquals ("5", new String[] { "axs", "34\"", "sd" },
+                           StringUtils.splitCSV("axs,34\"\",\"sd\""));
+
     }
     
     @Test
@@ -44,17 +46,7 @@ public class StringUtilsTest {
     	assertEquals ("eat dd |xeacnan", StringUtils.deLeet ("3@+ dd |x3@c|\\|@|\\|"));
     }//deLeetTest
     
-    @Test
-    public void eval0Test() {
-	assertEquals (BigInteger.valueOf (0), Calculator.eval0 ("0"));
-	assertEquals (BigInteger.valueOf (2), Calculator.eval0 ("1 + 1"));
-	assertEquals (BigInteger.valueOf (4), Calculator.eval0 ("1 + 2 + 1"));
-	assertEquals (BigInteger.valueOf (9), Calculator.eval0 ("1 + 2 * 3"));
-	assertEquals (BigInteger.valueOf (1), Calculator.eval0 ("1 - 2 + 4 / 3"));
-	assertEquals (BigInteger.valueOf (-2), Calculator.eval0 ("1 - 5 / 2"));
-	assertEquals (BigInteger.valueOf (27), Calculator.eval0 ("1 + 2 ^ 3"));
-	
-    }//eval0Test
+    
     
 
 }

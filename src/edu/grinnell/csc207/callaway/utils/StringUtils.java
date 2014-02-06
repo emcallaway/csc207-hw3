@@ -1,10 +1,24 @@
 package edu.grinnell.csc207.callaway.utils;
 
-import java.util.Arrays;
-//
+import java.util.ArrayList;
+
+/**
+ * A class designed with methods to split a string into elements of an array, to
+ * change some "leet" characters into normal characters, and to produce a verse
+ * of a song that can rhyme with (almost) any name.
+ * 
+ * @author Erin Callaway
+ * @version 1.0 of February 5, 2014
+ * 
+ * Help Accepted: The idea to use ArrayLists in the splitCSV method
+ * came from Alex Greenberg.
+ */
 public class StringUtils
 {
-
+  /**
+   * "splitAt" takes the specified string and splits it into substrings in an
+   * array based on the separator character that is given.
+   */
   public static String[] splitAt(String str, char separator)
   {
     int k = 0, j = 0, count = 0, size = 1;
@@ -44,6 +58,11 @@ public class StringUtils
     return newArray;
   }// splitAt(string, char)
 
+  /**
+   * "rmvDoubleQts" is a helper method for the "splitCSV" method. It takes the
+   * given word and replaces any double quotation marks with a single quotation
+   * mark.
+   */
   public static String rmvDoubleQts(String word)
   {
     String newWord = "";
@@ -58,24 +77,17 @@ public class StringUtils
     return newWord;
   }
 
+  /**
+   * "splitCSV" takes the given string and produces an array containing
+   * substrings that were separated by a comma. However, if the comma is within
+   * two quotation marks along with other characters it is considered part of
+   * the substring element in the array.
+   */
   public static String[] splitCSV(String str)
   {
-    int k = 0, count = 0, size=0;
+    int k = 0;
     
-    for (int i = 0; i < str.length(); i++)
-      {
-        if (str.charAt(i)=='"')
-          {
-            while (i < (str.length()) && !((str.substring(i, i+1)).equals("\",")))
-              i++;
-          }
-        else if (str.charAt(i)==',')
-          size++;
-      }// for(i<str.length)
-//    size++;
-    System.out.println("size: "+size);
-    String newArray[] = new String[10];
-    
+    ArrayList<String> newArrLst = new ArrayList<String>();
 
     for (int i = 0; i < str.length(); i++)
       {
@@ -84,22 +96,20 @@ public class StringUtils
             while (k < (str.length()) && !(str.charAt(k) == ','))
               k++;
 
-            newArray[count] = rmvDoubleQts(str.substring(i, k));
+            newArrLst.add(rmvDoubleQts(str.substring(i, k)));
             i = k - 1;
-            count++;
           }// if(i=0, str.charAt(0) != ")
         else if (str.charAt(i) == '"')
           {
             i++;
             k = i;
-            while (k < (str.length())
+            while (k < (str.length() - 1)
                    && !((str.charAt(k) == '"') && (str.charAt(k + 1) == ',')))
               k++;
 
-            newArray[count] = rmvDoubleQts(str.substring(i, k));
+            newArrLst.add(rmvDoubleQts(str.substring(i, k)));
 
             i = k;
-            count++;
           }// if(")
         else if (str.charAt(i) == ',')
           {
@@ -107,12 +117,10 @@ public class StringUtils
             k = i;
             if (str.charAt(k) != '"')
               {
-                while (k < (str.length())
-                       && !((str.charAt(k) == '"') || str.charAt(k) == ','))
+                while (k < (str.length()) && !(str.charAt(k) == ','))
                   k++;
-                newArray[count] = str.substring(i, k);
+                newArrLst.add(rmvDoubleQts(str.substring(i, k)));
                 i = k - 1;
-                count++;
               }// if (str.char != ")
             else
               i--;
@@ -120,9 +128,13 @@ public class StringUtils
 
       }// for (i)
 
-    return newArray;
+    return newArrLst.toArray(new String[newArrLst.size()]);
   }// splitCSV
 
+  /**
+   * "deLeet" takes the given string of "leet" text and returns the more
+   * standard form (alphabet characters).
+   */
   public static String deLeet(String str)
   {
     String leet = "";
@@ -158,9 +170,10 @@ public class StringUtils
 
   /**
    * Preconditions: Parameter must be a valid string. Names given must not begin
-   * with a vowel. Otherwise the rhyme cannot be guaranteed. Postconditions: A
-   * verse from Shirley Ellis's algorithm "The Name Game" will be returned. The
-   * verse will rhyme with the name given as the parameter.
+   * with a vowel. Otherwise the rhyme cannot be guaranteed.
+   * 
+   * Postconditions: A verse from Shirley Ellis's algorithm "The Name Game" will
+   * be returned. The verse will rhyme with the name given as the parameter.
    */
   public static String nameGame(String str)
   {
@@ -178,15 +191,4 @@ public class StringUtils
     return verse;
   }// nameGame
 
-  public static void main(String[] args)
-  {
-    // System.out.println(Arrays.toString(new String[] {"a", "b,b\"", "c"
-    // }));
-    System.out.println(Arrays.toString(splitCSV("a,\"b,b\"\"\",c")));
-    System.out.println(Arrays.toString(splitCSV("\"a,b\",c")));
-    System.out.println(Arrays.toString(splitCSV("a,b,c")));
-    // System.out.println(("rt3r3|\\|+@3"));
-    // System.out.println(deLeet("rjhg |3 r 3 |\\| + @ 3 dsgf"));
-    // System.out.println(nameGame("ian"));
-  }
 }// StringUtils
